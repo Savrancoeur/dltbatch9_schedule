@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Batch 9 Schedule</title>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script src="https://cdn.tailwindcss.com"></script>
+    </head>
+    <body
+        class="bg-gray-100 bg-gradient-to-br from-stone-300 to-teal-300 flex items-center justify-center min-h-screen p-4"
+    >
+        <div class="container mx-auto p-4 sm:p-6 md:p-8">
+            <h1
+                class="text-xl sm:text-2xl md:text-3xl font-bold text-center text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-gray-600 mb-4"
+            >
+                Data Land Technology's
+                <span
+                    class="text-transparent bg-clip-text bg-gradient-to-r from-purple-900 to-gray-600"
+                >
+                    Batch 9
+                </span>
+                Schedule
+            </h1>
+
+            <div id="warningNote" class="text-center mb-4 hidden">
+                <p
+                    class="text-sm sm:text-base md:text-lg font-semibold text-red-600"
+                >
+                    ES 6 will be ended on 1 Sept 2024 and <br />
+                    Python class will replace it on 8 Sept 2024 !
+                </p>
+            </div>
+
+            <div class="flex flex-wrap justify-center gap-2 sm:gap-4 mb-8">
+                <button
+                    id="btnMonday"
+                    class="btn-monday px-4 py-2 sm:px-6 sm:py-3 bg-blue-600 text-white font-bold rounded-lg hover:bg-blue-700 transform hover:translate-y-1 hover:scale-105 transition-transform duration-300"
+                >
+                    Monday
+                </button>
+                <button
+                    id="btnTuesday"
+                    class="btn-tuesday px-4 py-2 sm:px-6 sm:py-3 bg-green-600 text-white font-bold rounded-lg hover:bg-green-700 transform hover:translate-y-1 hover:scale-105 transition-transform duration-300"
+                >
+                    Tuesday
+                </button>
+                <button
+                    id="btnWednesday"
+                    class="btn-wednesday px-4 py-2 sm:px-6 sm:py-3 bg-yellow-600 text-white font-bold rounded-lg hover:bg-yellow-700 transform hover:translate-y-1 hover:scale-105 transition-transform duration-300"
+                >
+                    Wednesday
+                </button>
+                <button
+                    id="btnThursday"
+                    class="btn-thursday px-4 py-2 sm:px-6 sm:py-3 bg-red-600 text-white font-bold rounded-lg hover:bg-red-700 transform hover:translate-y-1 hover:scale-105 transition-transform duration-300"
+                >
+                    Thursday
+                </button>
+                <button
+                    id="btnFriday"
+                    class="btn-friday px-4 py-2 sm:px-6 sm:py-3 bg-purple-600 text-white font-bold rounded-lg hover:bg-purple-700 transform hover:translate-y-1 hover:scale-105 transition-transform duration-300"
+                >
+                    Friday
+                </button>
+                <button
+                    id="btnSaturday"
+                    class="btn-saturday px-4 py-2 sm:px-6 sm:py-3 bg-pink-600 text-white font-bold rounded-lg hover:bg-pink-700 transform hover:translate-y-1 hover:scale-105 transition-transform duration-300"
+                >
+                    Saturday
+                </button>
+                <button
+                    id="btnSunday"
+                    class="btn-sunday px-4 py-2 sm:px-6 sm:py-3 bg-gray-600 text-white font-bold rounded-lg hover:bg-gray-700 transform hover:translate-y-1 hover:scale-105 transition-transform duration-300"
+                >
+                    Sunday
+                </button>
+            </div>
+
+            <div
+                id="classTime"
+                class="p-4 sm:p-6 bg-white shadow-xl rounded-lg text-center hidden transform hover:translate-y-1 hover:scale-105 transition-transform duration-300"
+            >
+                <ul id="scheduleList" class="space-y-2 sm:space-y-4"></ul>
+            </div>
+        </div>
+
+        <script>
+            const schedules = {
+                Monday: [{ class: "PHP", time: "9:40 to 11:30" }],
+                Tuesday: [{ class: "PHP", time: "9:40 to 11:30" }],
+                Wednesday: [{ class: "-", time: "-" }],
+                Thursday: [{ class: "React JS", time: "9:40 to 11:30" }],
+                Friday: [{ class: "Laravel", time: "9:40 to 11:30" }],
+                Saturday: [{ class: "Tailwind CSS", time: "9:00 to 10:30" }],
+                Sunday: [{ class: "ES6", time: "9:40 to 11:30" }],
+            };
+
+            $(document).ready(function () {
+                const today = new Date();
+                const warningEndDate = new Date("2024-09-07");
+
+                if (today <= warningEndDate) {
+                    $("#warningNote").show();
+                }
+
+                function showSchedule(day) {
+                    const schedule = schedules[day];
+                    const scheduleList = $("#scheduleList");
+                    scheduleList.empty();
+                    $("#classTime").fadeOut(300);
+
+                    if (schedule.length > 0 && schedule[0].class !== "-") {
+                        schedule.forEach((item) => {
+                            const listItem = `<li class="text-sm sm:text-base md:text-lg font-semibold text-gray-700">${item.class} (${item.time})</li>`;
+                            scheduleList.append(listItem);
+                        });
+                    } else {
+                        scheduleList.append(
+                            `<li class="text-sm sm:text-base md:text-lg font-semibold text-gray-700">No Class Today.<br/> Revise the lessons you learned this week.<br/> Recharge your mind and body.<br/> Get ready for the next week.</li>`,
+                        );
+                    }
+
+                    $("#classTime").fadeIn(500);
+                }
+
+                $(".btn-monday").click(() => showSchedule("Monday"));
+                $(".btn-tuesday").click(() => showSchedule("Tuesday"));
+                $(".btn-wednesday").click(() => showSchedule("Wednesday"));
+                $(".btn-thursday").click(() => showSchedule("Thursday"));
+                $(".btn-friday").click(() => showSchedule("Friday"));
+                $(".btn-saturday").click(() => showSchedule("Saturday"));
+                $(".btn-sunday").click(() => showSchedule("Sunday"));
+            });
+        </script>
+    </body>
+</html>
